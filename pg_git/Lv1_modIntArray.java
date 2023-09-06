@@ -20,9 +20,8 @@ public class Lv1_modIntArray {
 		} else {
 			int[] answer = new int[arr.length - cnt];
 			int i = 0;
-			for (int a : answer) {
+			for (int a : arr) {
 				if (a != 0) {
-					System.out.println("저장된 a : "+a);
 					answer[i] = a;
 					i++;
 				}
@@ -31,11 +30,4 @@ public class Lv1_modIntArray {
 			return answer;
 		}
 	}
-	
-	public static void main(String[] args) {
-		Lv1_modIntArray m = new Lv1_modIntArray();
-		int[] arr = {5,9,7,10};
-		m.solution(arr, 5);
-	}
-
 }
