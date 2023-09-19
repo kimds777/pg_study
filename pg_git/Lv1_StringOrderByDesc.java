@@ -1,20 +1,29 @@
 package pg_git;
 
-// 수정해야함! 통과못함!!
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Lv1_StringOrderByDesc {
 	public String solution(String s) {
-		char[] answer = s.toCharArray();
+
+		Integer[] arr = new Integer[s.length()];
 		for (int i = 0; i < s.length(); i++) {
-			int a = answer[i];
-			for (int j = i + 1; j < s.length(); j++) {
-				int b = answer[j];
-				if (a < b) {
-					char temp = answer[i];
-					answer[i] = answer[j];
-					answer[j] = temp;
-				}
-			}
+			arr[i] = (int) s.charAt(i);
 		}
+
+		Arrays.sort(arr, Collections.reverseOrder());
+
+		char[] answer = new char[s.length()];
+		for (int i = 0; i < s.length(); i++) {
+			int temp = (int) arr[i];
+			answer[i] = (char) temp;
+		}
+
 		return String.valueOf(answer);
+	}
+
+	public static void main(String[] args) {
+		Lv1_StringOrderByDesc sod = new Lv1_StringOrderByDesc();
+		System.out.println(sod.solution("Zbcdefg"));
 	}
 }
