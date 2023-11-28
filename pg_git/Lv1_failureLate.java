@@ -1,11 +1,12 @@
 package pg_git;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-class FailureLate { // 더 작성해야함
+class FailureLate {
 	public int[] solution(int N, int[] stages) {
 		Map<Integer, Integer> checkStages = new HashMap<>();
 		for (int s : stages) {
@@ -31,25 +32,27 @@ class FailureLate { // 더 작성해야함
 		}
 		
 		List<Map.Entry<Integer,Double>> failSort = new LinkedList<>(checkFailureLate.entrySet());
-		failSort.sort(Map.Entry.comparingByValue());
+		failSort.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 		
+		int[] answer = new int[failSort.size()];
+		int i = 0;
 		for(Map.Entry<Integer,Double> entry : failSort){
-		    System.out.println("key : " + entry.getKey() + ", value : " + entry.getValue());
+		    answer[i] = entry.getKey();
+		    i++;
 		}
 
-		int[] answer = {};
 		return answer;
 	}
 }
 
 public class Lv1_failureLate {
 	public static void main(String[] args) {
-		int N = 5;
-		int[] stages = { 2, 1, 2, 6, 2, 4, 3, 3 };
+		int N = 4;
+		int[] stages = { 4,4,4,4,4 };
 
 		int[] result = new FailureLate().solution(N, stages);
-//		for (int r : result) {
-//			System.out.print(r + " ");
-//		}
+		for (int r : result) {
+			System.out.print(r + " ");
+		}
 	}
 }
