@@ -1,64 +1,55 @@
 package pg_git;
 
-class KakaoDartGame { // 수정 필요함!
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class KakaoDartGame {
 	public int solution(String dartResult) {
 		int answer = 0;
 		char[] dart = dartResult.toCharArray();
 		int leng = dart.length;
 
+		Map<Character, Integer> pow = new HashMap<>();
+		pow.put('S', 1);
+		pow.put('D', 2);
+		pow.put('T', 3);
+
+		List<Integer> dartScore = new ArrayList<>();
 		for (int i = 0; i < leng; i++) {
-			int o = 1;
-			if (dart[i] == 'S') {
-				if (i + 1 < leng) {
-					o = option(dart[i + 1]);
-					if (checkO(o)) {
-						answer *= o;
+			int index = dartScore.size() - 1;
+			if (pow.containsKey(dart[i])) {
+				dartScore.set(index, (int) Math.pow(dartScore.get(index), pow.get(dart[i])));
+			} else {
+				if (dart[i] == '*') {
+					if (index != 0) {
+						int preIndex = index - 1;
+						dartScore.set(preIndex, dartScore.get(preIndex) * 2);
+					}
+					dartScore.set(index, dartScore.get(index) * 2);
+				} else if (dart[i] == '#') {
+					dartScore.set(index, dartScore.get(index) * -1);
+				} else {
+					if (i > 0 && dart[i - 1] == '1' && dart[i] == '0') {
+						dartScore.set(index, 10);
+					} else {
+						dartScore.add(dart[i] - 48);
 					}
 				}
-				answer += dart[i - 1] - 48;
-			} else if (dart[i] == 'D') {
-				if (i + 1 < leng) {
-					o = option(dart[i + 1]);
-					if (checkO(o)) {
-						answer *= o;
-					}
-				}
-				answer += (int) Math.pow(dart[i - 1] - 48, 2) * o;
-			} else if (dart[i] == 'T') {
-				if (i + 1 < leng) {
-					o = option(dart[i + 1]);
-					if (checkO(o)) {
-						answer *= o;
-					}
-				}
-				answer += (int) Math.pow(dart[i - 1] - 48, 3) * o;
 			}
 		}
+		for (int d : dartScore) {
+			answer += d;
+		}
+
 		return answer;
-	}
-
-	public int option(char d) {
-		if (d == '#') {
-			return -1;
-		} else if (d == '*') {
-			return 2;
-		} else {
-			return 1;
-		}
-	}
-
-	public boolean checkO(int o) {
-		if (o == 2) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
 
 public class Lv1_kakaoDartGame {
 	public static void main(String[] args) {
-		String dartResult = "1D2S3T*";
+		String dartResult = "1D2S#10S";
 		int ans = new KakaoDartGame().solution(dartResult);
 		System.out.println(ans);
 	}
