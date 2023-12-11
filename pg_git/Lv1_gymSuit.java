@@ -1,48 +1,39 @@
 package pg_git;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
-class GymSuit { // 다시 작성해야함!
+class GymSuit {
 	public int solution(int n, int[] lost, int[] reserve) {
 		int answer = n - lost.length;
 
-		List<Integer> reserveCheck = Arrays.stream(reserve).boxed().collect(Collectors.toList());
+		Arrays.sort(lost); // 오름차순 정렬
+		Arrays.sort(reserve); // 오름차순 정렬
 
-		Arrays.sort(lost);
-		Collections.sort(reserveCheck);
-
-		for (int l : lost) {
-			if (reserveCheck.contains(l)) { // 여벌 체육복을 가져온 학생이 체육복을 도난당한 경우
-				int index = reserveCheck.indexOf(l);
-				reserveCheck.remove(index);
-				answer++;
-				continue;
+		for (int l = 0; l < lost.length; l++) {
+			for (int r = 0; r < reserve.length; r++) {
+				if (lost[l] == reserve[r]) { // 체육복을 도난 당한 학생중 여벌 체육복을 가져온 경우
+					answer++;
+					reserve[r] = -1;
+					lost[l] = -1;
+					break;
+				}
 			}
 		}
 
 		for (int l : lost) {
-			System.out.println("===========" + l + "===========");
-			System.out.println("reserveCheck: " + reserveCheck.toString());
-			System.out.println("-----------------------");
+			if (l == -1) {
+				continue;
+			}
 
-			int front = l + 1;
-			int back = l - 1;
+			int frontNumber = l - 1; // 도난 당한 학생의 앞번호 
+			int backNumber = l + 1; // 도난 당한 학생의 뒷번호
 
-			for (int r : reserveCheck) {
-				if (front == r || back == r) { // 체육복을 도난 당한 학생의 앞/뒤번호 중 한명의 학생이라도 여벌 체육복을 가져온 경우
-					System.out.println("r :" + r + ", front :" + front + ", back :" + back);
-					int index = reserveCheck.indexOf(r);
-					reserveCheck.remove(index);
+			for (int r = 0; r < reserve.length; r++) { 
+				if (frontNumber == reserve[r] || backNumber == reserve[r]) { // 여벌 체육복을 가져온 학생의 번호가 도난 당한 학생의 앞번호 혹은 뒷번호인 경우 
+					reserve[r] = -1;
 					answer++;
 					break;
 				}
-			}
-
-			if (reserveCheck.size() == 0) {
-				break;
 			}
 		}
 
@@ -53,8 +44,8 @@ class GymSuit { // 다시 작성해야함!
 public class Lv1_gymSuit {
 	public static void main(String[] args) {
 		int n = 5;
-		int[] lost = { 2, 4, 5 };
-		int[] reserve = { 1, 3, 5 };
+		int[] lost = { 2, 4 };
+		int[] reserve = { 3 };
 
 		int ans = new GymSuit().solution(n, lost, reserve);
 		System.out.println(ans);
