@@ -4,7 +4,7 @@ class MakingHamburgers {
 	public int solution(int[] ingredient) {
 		StringBuilder sb = new StringBuilder(); // StringBuilder 생성
 		for (int i : ingredient) {
-			sb.append(i); // ingredient를 ab에 넣어 문자열로 만든다.
+			sb.append(i); // ingredient를 sb에 넣어 문자열로 만든다.
 		}
 
 		int answer = 0;
@@ -25,13 +25,13 @@ class MakingHamburgers {
 
 //	시간 초과 발생!
 //	 public int solution(int[] ingredient) {
-//			String ingredients = Arrays.toString(ingredient).replaceAll("[^0-9]", "");
+//			String ingredients = Arrays.toString(ingredient).replaceAll("[^0-9]", ""); // ingredient를 문자열로 만들어준다.
 //			
-//			while (ingredients.contains("1231")) {
-//				ingredients = ingredients.replaceFirst("1231", "");
+//			while (ingredients.contains("1231")) { // ingredients에서 "1231"이 존재할 경우 계속 탐색
+//				ingredients = ingredients.replaceFirst("1231", ""); // ingredients에서 첫번째 "1231"을 ""으로 바꿔준다.
 //			}
 //			
-//			int answer = (ingredient.length - ingredients.length()) / 4;
+//			int answer = (ingredient.length - ingredients.length()) / 4; // ingredient의 길이와 ingredients의 길이를 뺀후 "1231"의 길이만큼 나눠 "1231"의 갯수를 구한다.
 //			return answer;
 //	}
 }
