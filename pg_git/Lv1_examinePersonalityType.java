@@ -21,7 +21,7 @@ class ExaminePersonalityType {
 						personalityTypeCheck.get(survey[s].charAt(0)) + score[c]); // Map에서 0번째 문자로 값을 가져와 선택지별 점수를 더한다.
 			}else { // 선택지별 점수가 4이상인 경우
 				personalityTypeCheck.put(survey[s].charAt(1), // 문자열에 1번째 문자를 
-						personalityTypeCheck.get(survey[s].charAt(0)) + score[c]); // Map에서 1번째 문자로 값을 가져와 선택지별 점수를 더한다.
+						personalityTypeCheck.get(survey[s].charAt(1)) + score[c]); // Map에서 1번째 문자로 값을 가져와 선택지별 점수를 더한다.
 			}
 
 		}
