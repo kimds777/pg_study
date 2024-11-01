@@ -2,39 +2,26 @@ package pg_git;
 
 import java.util.Arrays;
 
-public class Lv2_trimN2Array { // 런타임 에러 발생!!
+public class Lv2_trimN2Array {
     public static int[] solution(int n, long left, long right) {
-        int[] array = new int[n * n];
+        int[] answer = new int[(int) (right - left) + 1];
 
-        int cnt = 1;
-        for (int i = 0; i < (n * n); i = i + n) {
-            int repeat = cnt;
-            for (int j = 0; j < n; j++) {
-
-                if (repeat > 0) {
-                    array[i + j] = cnt;
-                    repeat--;
-                } else {
-                    array[i + j] = j + 1;
-                }
-
-                System.out.print(array[i + j] + " ");
-            }
-            cnt++;
+        int cnt = 0;
+        for (long i = left; i <= right; i++) {
+            answer[cnt++] = (int) Math.max(i / n, i % n) + 1;
         }
 
-        int[] answer = Arrays.copyOfRange(array, (int) left, (int) right +1);
         return answer;
     }
 
     public static void main(String[] args) {
-        int n = 3;
-        long left = 2;
-        long right = 5;
+        int n = 10000000;
+        long left = 99999999999L;
+        long right = 99999999999L;
+
         int[] ans = solution(n, left, right);
-        System.out.println("------------------");
-        for(int a : ans){
-            System.out.print(a );
+        for (long a : ans) {
+            System.out.print(a);
         }
     }
 }
