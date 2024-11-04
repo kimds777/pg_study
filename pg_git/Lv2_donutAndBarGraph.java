@@ -1,6 +1,6 @@
 package pg_git;
 
-class DonutAndBarGraph { // 실패!! -> 다시 풀어보기
+class DonutAndBarGraph {
     public int[] solution(int[][] edges) {
         int[] answer = new int[4];
 
